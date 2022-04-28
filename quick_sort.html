@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quick Sort</title>
+</head>
+<body>
+<script>
+
+function change_position(array, lowest_Index, highest_Index)
+{
+    var temporary = array[lowest_Index];
+    array[lowest_Index] = array[highest_Index];
+    array[highest_Index] = temporary;
+}
+function partition_function(array, lowest_Index, highest_Index)
+{
+    var pivot_element  = array[Math.floor((highest_Index + lowest_Index) / 2)], 
+     				  x= lowest_Index, 
+       				  y= highest_Index;
+    while (x <= y) 
+    {
+        while (array[x] < pivot_element) 
+        {
+            x++;
+        }
+        while (array[y] > pivot_element) 
+        {
+            y--;
+        }
+        if (x <= y) 
+        {
+            change_position(array, x, y); 
+            x++;
+            y--;
+        }
+    }
+    return x;
+}
+
+function quick_sort_function(array, lowest_Index, highest_Index) {
+    var pivot_element;
+    if (array.length > 1) {
+        pivot_element = partition_function(array, lowest_Index, highest_Index);
+        if (lowest_Index < pivot_element - 1) { 
+            quick_sort_function(array, lowest_Index, pivot_element - 1);
+        }
+        if (pivot_element < highest_Index) { 
+            quick_sort_function(array, pivot_element, highest_Index);
+        }
+    }
+    return array;
+}
+var array = [15,3,10,16,1,19];
+var sorted_array_elements = quick_sort_function(array, 0, array.length - 1);
+document.write("sorted_array_elements: "+sorted_array_elements); 
+</script>
+</body>
+</html>
